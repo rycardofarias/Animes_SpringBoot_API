@@ -1,4 +1,4 @@
-package domain;
+package rycardofarias.animes.springboot.domain;
 
 public class Anime {
     private String name;

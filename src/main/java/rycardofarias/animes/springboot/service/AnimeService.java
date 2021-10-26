@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import rycardofarias.animes.springboot.domain.Anime;
+import rycardofarias.animes.springboot.mapper.AnimeMapper;
 import rycardofarias.animes.springboot.repository.AnimeRepository;
 import rycardofarias.animes.springboot.request.AnimePostRequestBody;
 import rycardofarias.animes.springboot.request.AnimePutRequestBody;
@@ -27,8 +28,8 @@ public class AnimeService {
     }
 
     public Anime save(AnimePostRequestBody animePostRequestBody) {
-        Anime anime = Anime.builder().name(animePostRequestBody.getName()).build();
-        return animeRepository.save(anime);
+
+        return animeRepository.save(AnimeMapper.INSTANCE.toAnime(animePostRequestBody));
     }
 
     public void delete(long id) {
@@ -37,10 +38,8 @@ public class AnimeService {
 
     public void replace(AnimePutRequestBody animePutRequestBody) {
         Anime animeSaved = findByIdOrTrowBadRequestException(animePutRequestBody.getId());
-        Anime anime = Anime.builder()
-                .id(animeSaved.getId())
-                .name(animePutRequestBody.getName())
-                .build();
+        Anime anime = AnimeMapper.INSTANCE.toAnime(animePutRequestBody);
+        anime.setId(animeSaved.getId());
 
         animeRepository.save(anime);
 

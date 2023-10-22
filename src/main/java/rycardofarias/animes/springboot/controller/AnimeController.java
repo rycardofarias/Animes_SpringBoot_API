@@ -11,6 +11,7 @@ import rycardofarias.animes.springboot.request.AnimePutRequestBody;
 import rycardofarias.animes.springboot.service.AnimeService;
 import rycardofarias.animes.springboot.util.DateUtil;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class AnimeController {
         return ResponseEntity.ok(animeService.findByName(name));
     }
     @PostMapping
-    public ResponseEntity<Anime> save(@RequestBody AnimePostRequestBody animePostRequestBody){
+    public ResponseEntity<Anime> save(@RequestBody @Valid AnimePostRequestBody animePostRequestBody){
         return new ResponseEntity<>(animeService.save(animePostRequestBody), HttpStatus.CREATED);
     }
     @DeleteMapping(path = "/{id}")

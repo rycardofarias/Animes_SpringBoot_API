@@ -3,7 +3,6 @@ package rycardofarias.animes.springboot.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
 import rycardofarias.animes.springboot.domain.Anime;
 import rycardofarias.animes.springboot.exception.BadRequestException;
 import rycardofarias.animes.springboot.mapper.AnimeMapper;
@@ -11,7 +10,6 @@ import rycardofarias.animes.springboot.repository.AnimeRepository;
 import rycardofarias.animes.springboot.request.AnimePostRequestBody;
 import rycardofarias.animes.springboot.request.AnimePutRequestBody;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Service
@@ -34,7 +32,7 @@ public class AnimeService {
     }
 
     @Transactional
-    public Anime save(@RequestBody @Valid AnimePostRequestBody animePostRequestBody) {
+    public Anime save(AnimePostRequestBody animePostRequestBody) {
 
         return animeRepository.save(AnimeMapper.INSTANCE.toAnime(animePostRequestBody));
     }
